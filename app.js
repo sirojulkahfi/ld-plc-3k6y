@@ -230,6 +230,11 @@
       return;
     }
 
+    // If coming back from IO tab, restore to ladder view mode
+    if (state.viewMode === 'io') {
+      setViewMode('ladder');
+    }
+
     const progData = state.data[progName];
     if (!progData || !progData.instructions) {
       DOM.rungsStream.innerHTML = `<div class="empty-state">Data program ${progName} tidak ditemukan.</div>`;
@@ -1024,8 +1029,18 @@
       }
     });
 
-    DOM.btnModeLadder.addEventListener('click', () => setViewMode('ladder'));
-    DOM.btnModeMnemonic.addEventListener('click', () => setViewMode('mnemonic'));
+    DOM.btnModeLadder.addEventListener('click', () => {
+      if (state.currentProg === 'IO') {
+        loadProgram('MAIN');
+      }
+      setViewMode('ladder');
+    });
+    DOM.btnModeMnemonic.addEventListener('click', () => {
+      if (state.currentProg === 'IO') {
+        loadProgram('MAIN');
+      }
+      setViewMode('mnemonic');
+    });
 
     DOM.searchInput.addEventListener('input', (e) => {
       state.searchQuery = e.target.value;
