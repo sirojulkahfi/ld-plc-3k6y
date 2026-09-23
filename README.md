@@ -1,6 +1,9 @@
 # Ladder Diagram PLC - Camera Inspection 3K6Y
 
-Repository ini berisi program PLC Ladder Diagram yang diekspor dari **Mitsubishi GX Works 2** untuk mesin **Camera Inspection 3K6Y (v1.9)**.
+> 🚀 **[Buka Live Ladder Diagram Web Viewer di Browser](https://sirojulkahfi.github.io/ld-plc-3k6y/)**  
+> *(Lihat diagram visual tanpa perlu install GX Works 2)*
+
+---
 
 ## 🌐 Web Ladder Diagram Viewer (Online & Offline)
 
