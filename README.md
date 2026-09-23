@@ -1,23 +1,23 @@
 # Ladder Diagram PLC - Camera Inspection 3K6Y
 
 > 🚀 **[Buka Live Ladder Diagram Web Viewer di Browser](https://sirojulkahfi.github.io/ld-plc-3k6y/)**  
-> *(Lihat diagram visual tanpa perlu install GX Works 2)*
+> _(Lihat diagram visual tanpa perlu install GX Works 2)_
 
 ---
 
 ## 🌐 Web Ladder Diagram Viewer (Online & Offline)
 
-Anda dapat melihat seluruh diagram tangga (*ladder diagram*) visual persis seperti tampilan di GX Works 2 langsung melalui web browser:
+Anda dapat melihat seluruh diagram tangga (_ladder diagram_) visual persis seperti tampilan di GX Works 2 langsung melalui web browser:
 
-- **Buka Lokal**: Cukup klik 2x file [`index.html`](file:///d:/02%20PLC%20HMI%20PROG/3K6Y%20CAMERA%20INSPECTION/github/ld-plc-3k6y/index.html) di komputer Anda.
-- **GitHub Pages (Live)**: `https://sirojulkahfi.github.io/ld-plc-3k6y/` *(setelah diaktifkan di Settings > Pages > branch `main`)*.
+- **GitHub Pages (Live)**: `https://sirojulkahfi.github.io/ld-plc-3k6y/` _(setelah diaktifkan di Settings > Pages > branch `main`)_.
 
 ### Fitur Web Viewer:
+
 1. **Diagram Grafis SVG Presisi**: Kontak NO `--[ ]--`, NC `--[/]--`, Pulse `--[↑]--`, Coil `--( )--`, Function Block `-[MOV]-`, dan garis logika kontinu tanpa putus.
 2. **Branching Asli GX Works 2**: Instruksi `MPS`, `MRD`, dan `MPP` otomatis dirender sebagai percabangan jalur vertikal, bukan kotak kontak.
 3. **Pencarian & Cross-Reference (XRef)**: Klik nama device mana saja (misal `M900`, `X20`, `Y0`) untuk melihat semua lokasi pembacaan (input) dan penulisan (output).
 4. **Lompat ke Step**: Ketik nomor langkah (Step No.) untuk langsung menuju rung terkait.
-5. **Mode Tampilan**: Diagram Ladder grafis, *Instruction List / Mnemonic Table*, atau I/O Rack Hardware.
+5. **Mode Tampilan**: Diagram Ladder grafis, _Instruction List / Mnemonic Table_, atau I/O Rack Hardware.
 6. **Dark / Light Theme & Print to PDF**: Mendukung mode malam dan pencetakan langsung ke file PDF.
 
 ---
@@ -37,9 +37,9 @@ Anda dapat melihat seluruh diagram tangga (*ladder diagram*) visual persis seper
 
 ## 🌐 Komunikasi Jaringan (IP Configuration)
 
-| Perangkat | IP Address | Port / Keterangan |
-| :--- | :--- | :--- |
-| **PLC (Q04UDEH)** | `192.168.8.190` | Port MC Protocol: `5015` |
+| Perangkat            | IP Address      | Port / Keterangan         |
+| :------------------- | :-------------- | :------------------------ |
+| **PLC (Q04UDEH)**    | `192.168.8.190` | Port MC Protocol: `5015`  |
 | **Camera (Keyence)** | `192.168.8.200` | Ethernet Vision Interface |
 
 ---

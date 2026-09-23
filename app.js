@@ -363,19 +363,40 @@
     const svgContainer = document.createElement('div');
     svgContainer.className = 'rung-svg-container';
 
-    // SVG Dimension Calculations
+    // Helper for contact width
+    function getContactWidth(inst) {
+      return (inst.cmd.includes('=') || inst.cmd.includes('>') || inst.cmd.includes('<')) ? 135 : 85;
+    }
+
+    // Dynamic Layout Calculations per rung
     const ROW_HEIGHT = 60;
-    const CONTACT_WIDTH = 95;
-    const OUTPUT_WIDTH = 150;
-    const LEFT_RAIL_X = 14;
-    const RIGHT_RAIL_X = 896;
-    const TOTAL_WIDTH = 910;
+    const LEFT_RAIL_X = 16;
+    const OUTPUT_WIDTH = 160;
+
+    // Measure maximum contact width needed across all tiers
+    let maxContactsWidth = 0;
+    tiers.forEach(tier => {
+      let w = 0;
+      if (tier.contacts) {
+        tier.contacts.forEach(c => {
+          w += getContactWidth(c);
+        });
+      }
+      if (w > maxContactsWidth) maxContactsWidth = w;
+    });
+
+    const contactAreaWidth = Math.max(650, maxContactsWidth);
+    const outputStartX = LEFT_RAIL_X + contactAreaWidth + 30;
+    const RIGHT_RAIL_X = outputStartX + OUTPUT_WIDTH + 30;
+    const TOTAL_WIDTH = RIGHT_RAIL_X + 16;
     const numRows = Math.max(1, tiers.length);
     const TOTAL_HEIGHT = numRows * ROW_HEIGHT + 14;
 
     const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     svg.setAttribute('viewBox', `0 0 ${TOTAL_WIDTH} ${TOTAL_HEIGHT}`);
     svg.setAttribute('class', 'rung-svg');
+    svg.style.width = '100%';
+    svg.style.minWidth = `${TOTAL_WIDTH}px`;
 
     // Left Power Rail
     const leftRail = document.createElementNS('http://www.w3.org/2000/svg', 'line');
@@ -403,7 +424,13 @@
       // Handle branch vertical line from parent tier
       if (tier.isBranch) {
         const branchCol = tier.branchCol || 0;
-        const branchX = Math.min(LEFT_RAIL_X + branchCol * CONTACT_WIDTH, RIGHT_RAIL_X - OUTPUT_WIDTH - 40);
+        let branchX = LEFT_RAIL_X;
+        if (tiers[0].contacts) {
+          for (let i = 0; i < Math.min(branchCol, tiers[0].contacts.length); i++) {
+            branchX += getContactWidth(tiers[0].contacts[i]);
+          }
+        }
+        branchX = Math.min(branchX, outputStartX - 40);
 
         // Vertical drop line from Tier 0 to this tier
         const parentY = 36; // Tier 0 Y
@@ -421,14 +448,14 @@
       // Render Contacts in this tier
       if (tier.contacts && tier.contacts.length > 0) {
         tier.contacts.forEach(contact => {
-          const contactG = renderSVGContact(contact, currX, yCenter, CONTACT_WIDTH);
+          const cWidth = getContactWidth(contact);
+          const contactG = renderSVGContact(contact, currX, yCenter, cWidth);
           svg.appendChild(contactG);
-          currX += CONTACT_WIDTH;
+          currX += cWidth;
         });
       }
 
       // Wire between last contact and output
-      const outputStartX = RIGHT_RAIL_X - OUTPUT_WIDTH;
       if (outputStartX > currX) {
         const connectWire = document.createElementNS('http://www.w3.org/2000/svg', 'line');
         connectWire.setAttribute('x1', currX);
