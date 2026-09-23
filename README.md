@@ -37,10 +37,10 @@ Anda dapat melihat seluruh diagram tangga (_ladder diagram_) visual persis seper
 
 ## 🌐 Komunikasi Jaringan (IP Configuration)
 
-| Perangkat            | IP Address      | Port / Keterangan         |
-| :------------------- | :-------------- | :------------------------ |
-| **PLC (Q04UDEH)**    | `192.168.8.190` | Port MC Protocol: `5015`  |
-| **Camera (Keyence)** | `192.168.8.200` | Ethernet Vision Interface |
+| Perangkat            | IP Address        | Port / Keterangan         |
+| :------------------- | :---------------- | :------------------------ |
+| **PLC (Q04UDEH)**    | `192.168.x.xxx`   | Port MC Protocol: `5015`  |
+| **Camera (Keyence)** | `192.168.x.xxx`   | Ethernet Vision Interface |
 
 ---
 
