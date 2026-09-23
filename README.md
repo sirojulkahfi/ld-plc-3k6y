@@ -2,6 +2,21 @@
 
 Repository ini berisi program PLC Ladder Diagram yang diekspor dari **Mitsubishi GX Works 2** untuk mesin **Camera Inspection 3K6Y (v1.9)**.
 
+## 🌐 Web Ladder Diagram Viewer (Online & Offline)
+
+Anda dapat melihat seluruh diagram tangga (*ladder diagram*) visual persis seperti tampilan di GX Works 2 langsung melalui web browser:
+
+- **Buka Lokal**: Cukup klik 2x file [`index.html`](file:///d:/02%20PLC%20HMI%20PROG/3K6Y%20CAMERA%20INSPECTION/github/ld-plc-3k6y/index.html) di komputer Anda.
+- **GitHub Pages (Live)**: `https://sirojulkahfi.github.io/ld-plc-3k6y/` *(setelah diaktifkan di Settings > Pages > branch `main`)*.
+
+### Fitur Web Viewer:
+1. **Diagram Grafis SVG Presisi**: Kontak NO `--[ ]--`, NC `--[/]--`, Pulse `--[↑]--`, Coil `--( )--`, Function Block `-[MOV]-`, dan garis logika kontinu tanpa putus.
+2. **Branching Asli GX Works 2**: Instruksi `MPS`, `MRD`, dan `MPP` otomatis dirender sebagai percabangan jalur vertikal, bukan kotak kontak.
+3. **Pencarian & Cross-Reference (XRef)**: Klik nama device mana saja (misal `M900`, `X20`, `Y0`) untuk melihat semua lokasi pembacaan (input) dan penulisan (output).
+4. **Lompat ke Step**: Ketik nomor langkah (Step No.) untuk langsung menuju rung terkait.
+5. **Mode Tampilan**: Diagram Ladder grafis, *Instruction List / Mnemonic Table*, atau I/O Rack Hardware.
+6. **Dark / Light Theme & Print to PDF**: Mendukung mode malam dan pencetakan langsung ke file PDF.
+
 ---
 
 ## 📌 Informasi PLC & Perangkat Keras

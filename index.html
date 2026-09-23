@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ladder Diagram Viewer - Mitsubishi GX Works 2 | Camera Inspection 3K6Y</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="app.css">
+</head>
+<body class="theme-gxworks">
+  <!-- Top Navigation Bar -->
+  <header class="top-nav">
+    <div class="nav-left">
+      <div class="brand">
+        <div class="brand-logo">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 4v16M20 4v16M4 8h16M4 16h16M9 6v4M15 6v4M9 14v4M15 14v4"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <div class="brand-title">GX Works 2 Ladder Viewer</div>
+          <div class="brand-subtitle">Camera Inspection 3K6Y &bull; Q04UDEH</div>
+        </div>
+      </div>
+
+      <!-- Program Tabs -->
+      <nav class="program-tabs" id="programTabs">
+        <button class="tab-btn active" data-prog="MAIN" id="tabMain">
+          <span class="tab-indicator"></span>
+          <span class="tab-name">MAIN.csv</span>
+          <span class="tab-badge" id="badgeMain">2762 stp</span>
+        </button>
+        <button class="tab-btn" data-prog="ALARM" id="tabAlarm">
+          <span class="tab-indicator"></span>
+          <span class="tab-name">ALARM.csv</span>
+          <span class="tab-badge" id="badgeAlarm">155 stp</span>
+        </button>
+        <button class="tab-btn" data-prog="CAMERA" id="tabCamera">
+          <span class="tab-indicator"></span>
+          <span class="tab-name">CAMERA.csv</span>
+          <span class="tab-badge" id="badgeCamera">74 stp</span>
+        </button>
+        <button class="tab-btn" data-prog="IO" id="tabIO">
+          <span class="tab-indicator"></span>
+          <span class="tab-name">I/O Rack & IP</span>
+        </button>
+      </nav>
+    </div>
+
+    <div class="nav-right">
+      <!-- Search & Jump -->
+      <div class="search-box">
+        <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" id="searchInput" placeholder="Cari Device (X, Y, M, D, T)..." autocomplete="off">
+        <button id="clearSearchBtn" class="clear-btn" title="Clear search" style="display:none;">&times;</button>
+      </div>
+
+      <div class="step-jump-box">
+        <span class="jump-label">Step:</span>
+        <input type="number" id="stepJumpInput" placeholder="0" min="0">
+        <button id="stepJumpBtn" class="nav-action-btn" title="Lompat ke Step">Go</button>
+      </div>
+
+      <!-- View Mode Toggles -->
+      <div class="view-mode-group">
+        <button class="mode-btn active" id="btnModeLadder" title="Mode Diagram Ladder Grafis">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <line x1="3" y1="9" x2="21" y2="9"/>
+            <line x1="3" y1="15" x2="21" y2="15"/>
+            <line x1="9" y1="3" x2="9" y2="21"/>
+          </svg>
+          <span>Ladder</span>
+        </button>
+        <button class="mode-btn" id="btnModeMnemonic" title="Mode Mnemonic / Instruction List">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="8" y1="6" x2="21" y2="6"/>
+            <line x1="8" y1="12" x2="21" y2="12"/>
+            <line x1="8" y1="18" x2="21" y2="18"/>
+            <line x1="3" y1="6" x2="3.01" y2="6"/>
+            <line x1="3" y1="12" x2="3.01" y2="12"/>
+            <line x1="3" y1="18" x2="3.01" y2="18"/>
+          </svg>
+          <span>List</span>
+        </button>
+      </div>
+
+      <!-- Actions -->
+      <div class="action-buttons">
+        <button id="themeToggleBtn" class="icon-btn" title="Ganti Tema (GX Works Classic / Dark Studio)">
+          <svg class="sun-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+        </button>
+
+        <button id="printBtn" class="icon-btn" title="Cetak / Print to PDF">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="6 9 6 2 18 2 18 9"></polyline>
+            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+            <rect x="6" y="14" width="12" height="8"></rect>
+          </svg>
+        </button>
+
+        <label for="csvFileInput" class="icon-btn upload-btn" title="Buka File CSV GX Works 2 Lain">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="17 8 12 3 7 8"></polyline>
+            <line x1="12" y1="3" x2="12" y2="15"></line>
+          </svg>
+          <input type="file" id="csvFileInput" accept=".csv,.tsv,.txt" style="display:none;">
+        </label>
+      </div>
+    </div>
+  </header>
+
+  <!-- Sub-Header: Project Info & Device Quick Filter -->
+  <section class="info-bar">
+    <div class="info-meta">
+      <span class="meta-tag"><strong>PLC:</strong> QCPU Q04UDEH</span>
+      <span class="meta-tag"><strong>Proyek:</strong> Camera Inspection 3K6Y V1.9</span>
+      <span class="meta-tag" id="currentProgMeta"><strong>Program Aktif:</strong> MAIN</span>
+      <span class="meta-tag" id="rungsCountMeta"><strong>Total Rung:</strong> -</span>
+    </div>
+
+    <!-- Quick Device Type Filter -->
+    <div class="device-filter-chips">
+      <span class="chip-label">Filter:</span>
+      <button class="chip active" data-filter="ALL">Semua</button>
+      <button class="chip chip-x" data-filter="X">X (Input)</button>
+      <button class="chip chip-y" data-filter="Y">Y (Output)</button>
+      <button class="chip chip-m" data-filter="M">M (Relay)</button>
+      <button class="chip chip-d" data-filter="D">D (Data)</button>
+      <button class="chip chip-t" data-filter="T">T (Timer)</button>
+      <button class="chip chip-sm" data-filter="SM">SM/SD (Special)</button>
+    </div>
+  </section>
+
+  <!-- Main Work Area -->
+  <main class="main-container" id="mainContainer">
+    <!-- Ladder Diagram View -->
+    <div id="ladderView" class="view-panel active">
+      <div class="rungs-stream" id="rungsStream">
+        <!-- Rendered Rungs injected here -->
+      </div>
+    </div>
+
+    <!-- Instruction List View -->
+    <div id="mnemonicView" class="view-panel" style="display: none;">
+      <div class="table-card">
+        <table class="mnemonic-table" id="mnemonicTable">
+          <thead>
+            <tr>
+              <th style="width: 80px;">Step No.</th>
+              <th style="width: 140px;">Instruction</th>
+              <th>I/O Device / Operand</th>
+              <th style="width: 150px;">Line Statement</th>
+              <th>Note</th>
+            </tr>
+          </thead>
+          <tbody id="mnemonicTableBody">
+            <!-- Mnemonic rows injected here -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Hardware I/O & Network View -->
+    <div id="ioView" class="view-panel" style="display: none;">
+      <div class="io-container">
+        <!-- Rack Base Section -->
+        <div class="io-card">
+          <div class="card-header">
+            <h3>Konfigurasi Base Unit & Modul I/O (Mitsubishi MELSEC-Q)</h3>
+            <span class="badge">Q04UDEH Rack Base</span>
+          </div>
+          <div class="rack-visual" id="rackVisual">
+            <!-- Visual Slot modules -->
+          </div>
+        </div>
+
+        <!-- IP Communication Section -->
+        <div class="io-card">
+          <div class="card-header">
+            <h3>Konfigurasi Komunikasi Ethernet (IP COM)</h3>
+            <span class="badge">Network Architecture</span>
+          </div>
+          <div class="network-cards">
+            <div class="net-box">
+              <div class="net-icon plc">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="2" y="2" width="20" height="20" rx="2"/>
+                  <line x1="6" y1="6" x2="6" y2="18"/>
+                  <circle cx="14" cy="9" r="2"/>
+                  <circle cx="14" cy="15" r="2"/>
+                </svg>
+              </div>
+              <div class="net-details">
+                <div class="net-name">PLC Controller (Q04UDEH)</div>
+                <div class="net-ip">192.168.8.190</div>
+                <div class="net-port">Port MC Protocol: <strong>5015</strong></div>
+                <div class="net-desc">Built-in Ethernet port untuk koneksi HMI, SCADA & Vision</div>
+              </div>
+            </div>
+
+            <div class="net-arrow">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+              <span>TCP/IP</span>
+            </div>
+
+            <div class="net-box">
+              <div class="net-icon camera">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                  <circle cx="12" cy="13" r="4"></circle>
+                </svg>
+              </div>
+              <div class="net-details">
+                <div class="net-name">Camera Vision System (Keyence)</div>
+                <div class="net-ip">192.168.8.200</div>
+                <div class="net-port">Subnet: <strong>192.168.8.0/24</strong></div>
+                <div class="net-desc">Inspeksi visual produk 3K6Y, transfer data hasil via DMOV/MOV</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Device Cross-Reference Drawer (Modal / Sidebar) -->
+  <aside class="xref-drawer" id="xrefDrawer">
+    <div class="drawer-header">
+      <div class="drawer-title">
+        <span class="device-tag" id="xrefDeviceName">M900</span>
+        <span>Device Cross-Reference</span>
+      </div>
+      <button class="close-drawer-btn" id="closeXrefBtn">&times;</button>
+    </div>
+    <div class="drawer-stats" id="xrefStats">
+      <!-- Usage summary -->
+    </div>
+    <div class="drawer-list" id="xrefList">
+      <!-- References list -->
+    </div>
+  </aside>
+
+  <!-- Floating Jump to Top Button -->
+  <button id="scrollTopBtn" class="scroll-top-btn" title="Kembali ke Atas">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <polyline points="18 15 12 9 6 15"></polyline>
+    </svg>
+  </button>
+
+  <!-- Load Preloaded PLC Data and Main Script -->
+  <script src="plc-data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
